@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: kanban-board-backend
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false        # set manually in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: ALLOWED_ORIGINS
+        sync: false        # set manually: your Vercel frontend URL
+      - key: API_URL
+        sync: false        # set manually: your Render service URL
